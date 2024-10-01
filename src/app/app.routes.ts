@@ -7,18 +7,24 @@ export const routes: Routes = [
   // rutas publicas
   {
     path: 'auth',
-    canActivate: [guestGuard],
+    canActivate: [
+      // guestGuard
+    ],
     loadChildren: () => import('./auth/auth.routes'),
   },
   // rutas privadas
   {
     path: 'admin',
-    canActivate: [adminGuard],
+    canActivate: [
+      // adminGuard
+    ],
     loadChildren: () => import('./admin/admin.routes'),
   },
   {
     path: '',
-    canActivate: [userGuard],
+    canActivate: [
+      // userGuard
+    ],
     loadChildren: () => import('./dashboard/dashboard.routes'),
   },
 ];

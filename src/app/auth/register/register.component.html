@@ -21,14 +21,16 @@
         <div class="flex justify-between items-baseline">
           <button
             type="submit"
-            class="mt-4 bg-limon font-bold text-white py-2 px-6 rounded-md hover:bg-purple-600"
+            class="mt-4 bg-limon-600 font-bold text-white py-2 px-6 rounded-md hover:bg-purple-600"
           >
             Registrarme
           </button>
         </div>
         <div class="pt-6 text-claro flex flex-col text-sm items-center">
           <span> ¿Ya tienes una cuenta? </span>
-          <a [routerLink]="['/auth/login']" class="text-limon hover:underline"
+          <a
+            [routerLink]="['/auth/login']"
+            class="text-limon-600 hover:underline"
             >Inicia sesión</a
           >
         </div>

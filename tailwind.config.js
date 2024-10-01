@@ -5,7 +5,10 @@ module.exports = {
     extend: {},
     colors: {
       transparent: "transparent",
-      limon: "#E8FF00",
+      limon: {
+        600: "#E8FF00",
+        800: "#c1d404",
+      },
       blanco: "#fff",
       claro: "#F4F4F4",
       gris: "#DFE2E7",

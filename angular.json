@@ -9,7 +9,7 @@
         "sourceLocale": "en-US",
         "locales": {
           "es": {
-            "translation": "src/locale/messages.es.xlf",
+            "translation": "src/locale/es/messages.es.xlf",
             "baseHref": ""
           }
         }
@@ -39,6 +39,7 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
             ],
             "scripts": [],
@@ -113,6 +114,7 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
             ],
             "scripts": []
