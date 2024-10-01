@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-icon',
   standalone: true,
-  imports: [MatIconModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './icon.component.html',
   styleUrl: './icon.component.css',
 })

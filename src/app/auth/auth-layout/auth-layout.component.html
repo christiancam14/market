@@ -1,10 +1,10 @@
 <section
-  class="bg-limon-600 w-full h-full min-h-dvh flex justify-center align-middle items-center"
+  class="bg-limon-600 w-full h-auto py-4 min-h-dvh flex justify-center align-middle items-center"
 >
   <div
-    class="bg-claro rounded-md shadow-md flex justify-center items-center align-middle overflow-hidden"
+    class="bg-claro w-11/12 md:w-auto rounded-md shadow-md flex justify-center items-center align-middle overflow-hidden"
   >
-    <div class="bg-azul-900 p-6 text-center flex flex-col items-center">
+    <div class="bg-azul-900 w-full p-6 text-center flex flex-col items-center">
       <svg
         class="svg-standalone-icon block md:hidden animate-pulse"
         width="200px"
@@ -22,7 +22,9 @@
         </g>
       </svg>
 
-      <router-outlet />
+      <div class="">
+        <router-outlet />
+      </div>
     </div>
     <div class="p-6 hidden md:block">
       <svg
@@ -35,7 +37,7 @@
           fill-rule="evenodd"
         >
           <path
-          class="fill-azul-900"
+            class="fill-azul-900"
             d="M221.58113,238.06839l-11.24602,2.74618v6.98302h-16.81287c-4.99985,0 -9.05308,-4.0532 -9.05308,-9.05308v-77.9169c0,-4.99985 4.05324,-9.05308 9.05308,-9.05308h20.53977v8.87912l12.09605,1.50388zM249.63099,247.79758h18.49931l-20.46093,-61.38255l-7.84604,-24.51908l-0.26156,18.17682l-1.9615,57.79955l12.03073,2.94223zM278.70838,247.79758h17.60682v-6.85226l10.78841,-2.94232l-3.66157,-50.08419l-0.26156,-26.54586l-2.22297,9.02296zM339.66455,247.79758h16.81309c5.0003,0 9.0532,-4.0532 9.0532,-9.05308v-77.9169c0,-4.99985 -4.05291,-9.05308 -9.0532,-9.05308h-21.65158v8.87912l-12.22679,1.43849l6.80022,76.04165l10.26506,2.81154zM292.94555,151.77452h-33.4742l14.74401,48.69804l2.15769,13.20765l2.74609,-13.20765z"
             data-paper-data='{"isPathIcon":true}'
           ></path>

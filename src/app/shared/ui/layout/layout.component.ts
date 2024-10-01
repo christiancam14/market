@@ -54,12 +54,15 @@ import {
 })
 export class LayoutComponent {
   public url: string;
+  
   public panelState = 'hidden';
   constructor(private router: Router) {
     this.url = router.url;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.panelState = 'visible'; // Mostrar el panel al iniciar la navegación
+
+        this.url = event.url;
 
         setTimeout(() => {
           this.panelState = 'left'; // Mover el panel a la derecha después de un tiempo

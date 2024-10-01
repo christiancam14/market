@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { IconComponent } from '../../shared/ui/icon/icon.component';
 
@@ -10,8 +10,15 @@ import { IconComponent } from '../../shared/ui/icon/icon.component';
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.css',
 })
-export class MessagesComponent {
+export class MessagesComponent implements AfterViewInit {
+  @ViewChild('scrollableSection') scrollableSection!: ElementRef;
+
   isOpen: boolean = true;
+
+  ngAfterViewInit(): void {
+    this.scrollableSection.nativeElement.scrollTop =
+      this.scrollableSection.nativeElement.scrollHeight;
+  }
 
   toggleSideBar() {
     this.isOpen = !this.isOpen;
