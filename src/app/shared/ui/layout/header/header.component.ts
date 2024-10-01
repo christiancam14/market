@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../../auth/services/auth.service';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { IconComponent } from '../../icon/icon.component';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -83,7 +83,13 @@ export class HeaderComponent {
     },
   ];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.toggleHeaderOpen();
+      }
+    });
+  }
 
   toggleMessages() {
     this.isHavingMessages = !this.isHavingMessages;
