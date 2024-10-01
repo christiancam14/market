@@ -1,0 +1,65 @@
+<div class="relative flex flex-col">
+  <!-- Chat Header -->
+  <header
+    class="bg-blanco flex items-center gap-1 p-4 text-gray-700 h-14 md:h-16 shadow-lg sticky top-0 z-40"
+  >
+    <button class="block md:hidden" (click)="toggleSideBar()">
+      <app-icon name="arrow_back" />
+    </button>
+    <div class="w-9 h-9 rounded-full flex items-center justify-center">
+      <img
+        [src]="contact.avatarUrl"
+        alt="User Avatar"
+        class="w-8 h-8 rounded-full"
+      />
+    </div>
+    <h5 class="text-2xl !font-semibold m-0">{{ contact.name }} {{ userId }}</h5>
+  </header>
+
+  <!-- Chat Messages -->
+  <div #scrollableSection class="flex-1 overflow-y-auto bg-gris p-4">
+    @for (message of contact.chat; track $index) { @if(message.sender ===
+    'incoming') {
+    <div class="flex mb-4 incoming-message">
+      <div class="w-9 h-9 rounded-full flex items-center justify-center mr-2">
+        <img
+          [src]="contact.avatarUrl"
+          alt="User Avatar"
+          class="w-8 h-8 rounded-full"
+        />
+      </div>
+      <div class="flex max-w-64 md:max-w-96 bg-blanco rounded-lg p-3 gap-3 relative">
+        <p class="text-gray-700">{{ message.content }}</p>
+        <div class="arrow"></div>
+      </div>
+    </div>
+    } @else {
+    <!-- Outgoing Message -->
+    <div class="flex justify-end mb-4 outgoing-message">
+      <div
+        class="flex max-w-64 md:max-w-96 bg-azul-900 text-blanco rounded-lg p-3 gap-3 relative"
+      >
+        <p>{{ message.content }}</p>
+        <div class="arrow"></div>
+      </div>
+      <div class="w-9 h-9 rounded-full flex items-center justify-center ml-2">
+        <img [src]="myAvatarUrl" alt="My Avatar" class="w-8 h-8 rounded-full" />
+      </div>
+    </div>
+    } }
+  </div>
+
+  <!-- Chat Input -->
+  <footer class="bg-blanco border-t border-gray-300 p-4 sticky bottom-0 z-40">
+    <div class="flex items-center">
+      <input
+        type="text"
+        placeholder="Escribe un mensaje..."
+        class="w-full p-2 rounded-md border border-gray-400 focus:outline-none focus:border-blue-500"
+      />
+      <button class="bg-azul-900 text-blanco px-4 py-2 rounded-md ml-2">
+        Enviar
+      </button>
+    </div>
+  </footer>
+</div>

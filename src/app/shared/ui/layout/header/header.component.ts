@@ -96,4 +96,9 @@ export class HeaderComponent {
   onLogOut() {
     this.router.navigate(['/auth/login']);
   }
+
+  isActive(url: string): boolean {
+    const currentUrl = this.router.url;
+    return currentUrl === url || currentUrl.startsWith(`${url}/`);
+  }
 }

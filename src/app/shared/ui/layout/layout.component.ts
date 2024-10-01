@@ -54,7 +54,7 @@ import {
 })
 export class LayoutComponent {
   public url: string;
-  
+
   public panelState = 'hidden';
   constructor(private router: Router) {
     this.url = router.url;

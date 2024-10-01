@@ -1,8 +1,9 @@
+@if (!url.startsWith('/messages')) {
 <div [@panelState]="panelState" class="transition-panel"></div>
+}
 <app-header />
-
 <router-outlet></router-outlet>
 
-@if (url !== '/messages') {
+@if (!url.startsWith('/messages')) {
 <app-footer />
 }

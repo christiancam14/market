@@ -69,3 +69,71 @@ p {
 .transition-panel.left {
   transform: translateX(-100%); /* Mueve el panel a la derecha para salir */
 }
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.incoming-message,
+.outgoing-message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.incoming-message .avatar,
+.outgoing-message .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.incoming-message .message,
+.outgoing-message .message {
+  max-width: 75%;
+  padding: 12px;
+  border-radius: 16px;
+  position: relative;
+}
+
+.incoming-message .message {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.outgoing-message .message {
+  background-color: #34b7f1; /* Color de WhatsApp */
+  color: white;
+  margin-left: auto; /* Para alinear a la derecha */
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
+
+.incoming-message .arrow {
+  border-top: 8px solid white;
+  position: absolute;
+  top: 0px;
+  left: -6px; /* Ajusta según el espacio */
+}
+
+.outgoing-message .arrow {
+  border-top: 8px solid #1B2132; /* Color de WhatsApp */
+  position: absolute;
+  top: 0px;
+  right: -6px; /* Ajusta según el espacio */
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
