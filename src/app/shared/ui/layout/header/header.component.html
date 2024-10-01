@@ -1,11 +1,12 @@
-<header class="bg-white shadow-md">
+<header class="bg-claro shadow-md h-20">
   <nav
     class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
     aria-label="Global"
   >
     <div class="flex lg:flex-1">
       <a href="#" class="-m-1.5 p-1.5">
-        <span class="sr-only">Your Company</span>
+        <span class="sr-only">Market</span>
+        <!-- Logo -->
         <svg
           class="svg-standalone-icon"
           width="60px"
@@ -28,22 +29,10 @@
       <button
         type="button"
         class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+        (click)="toggleHeaderOpen()"
       >
         <span class="sr-only">Open main menu</span>
-        <svg
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
-        </svg>
+        <app-icon name="menu" />
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
@@ -57,60 +46,49 @@
         >Company</a
       >
     </div>
-    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
+      <a [routerLink]="['/messages']">
+        <app-icon name="person" />
+      </a>
+      <a [routerLink]="['/messages']">
+        <app-icon name="chat_bubble" />
+        <app-icon name="mark_chat_unread" />
+      </a>
       <button (click)="onLogOut()">
-        <mat-icon
-          aria-hidden="false"
-          aria-label="Example home icon"
-          fontIcon="logout"
-          class="text-azul-900"
-        ></mat-icon>
+        <app-icon name="logout" />
       </button>
     </div>
   </nav>
   <!-- Mobile menu, show/hide based on menu open state. -->
-  <div class="lg:hidden" role="dialog" aria-modal="true">
+  @if (isHeaderOpen) {
+  <div
+    class="lg:hidden transition-all"
+    role="dialog"
+    aria-modal="true"
+    [ngClass]="isHeaderOpen ? 'opacity-100' : 'opacity-0'"
+    
+  >
     <!-- Background backdrop, show/hide based on slide-over state. -->
-    <div class="fixed inset-0 z-10"></div>
     <div
-      class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+      class="fixed inset-0 z-10 bg-azul-900 opacity-50"
+      (click)="toggleHeaderOpen()"
+    ></div>
+    <div
+      class="shadow-sm fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-limon-600 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+      @slideInOut
     >
       <div class="flex items-center justify-between">
         <a href="#" class="-m-1.5 p-1.5">
-          <span class="sr-only">Your Company</span>
-          <svg
-            class="svg-standalone-icon block md:hidden animate-pulse"
-            width="20px"
-            viewBox="184.46915479021004 151.77451963066326 181.06169041957992 96.02306188996326"
-          >
-            <g
-              data-paper-data='{"fillRule":"evenodd","fillRuleOriginal":"evenodd","isIcon":true,"iconStyle":"standalone","selectedEffects":{"container":"","transformation":"","pattern":""},"bounds":{"x":184.46915479021004,"y":151.77451963066326,"width":181.06169041957992,"height":96.02306188996326},"iconType":"icon","rawIconId":"52bef367-2f60-4112-a6d1-5ec86cd74275","isDetailed":false,"suitableAsStandaloneIcon":true}'
-              fill-rule="evenodd"
-            >
-              <path
-                class="fill-azul-900"
-                d="M221.58113,238.06839l-11.24602,2.74618v6.98302h-16.81287c-4.99985,0 -9.05308,-4.0532 -9.05308,-9.05308v-77.9169c0,-4.99985 4.05324,-9.05308 9.05308,-9.05308h20.53977v8.87912l12.09605,1.50388zM249.63099,247.79758h18.49931l-20.46093,-61.38255l-7.84604,-24.51908l-0.26156,18.17682l-1.9615,57.79955l12.03073,2.94223zM278.70838,247.79758h17.60682v-6.85226l10.78841,-2.94232l-3.66157,-50.08419l-0.26156,-26.54586l-2.22297,9.02296zM339.66455,247.79758h16.81309c5.0003,0 9.0532,-4.0532 9.0532,-9.05308v-77.9169c0,-4.99985 -4.05291,-9.05308 -9.0532,-9.05308h-21.65158v8.87912l-12.22679,1.43849l6.80022,76.04165l10.26506,2.81154zM292.94555,151.77452h-33.4742l14.74401,48.69804l2.15769,13.20765l2.74609,-13.20765z"
-                data-paper-data='{"isPathIcon":true}'
-              ></path>
-            </g>
-          </svg>
+          <!-- <span class="sr-only">Your Company</span> -->
+          <span>Market Store</span>
         </a>
-        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+        <button
+          type="button"
+          class="-m-2.5 rounded-md p-2.5 text-gray-700"
+          (click)="toggleHeaderOpen()"
+        >
           <span class="sr-only">Close menu</span>
-          <svg
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <app-icon name="close" />
         </button>
       </div>
       <div class="mt-6 flow-root">
@@ -143,4 +121,5 @@
       </div>
     </div>
   </div>
+  }
 </header>
