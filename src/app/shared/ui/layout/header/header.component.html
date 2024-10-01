@@ -4,7 +4,7 @@
     aria-label="Global"
   >
     <div class="flex lg:flex-1">
-      <a href="#" class="-m-1.5 p-1.5">
+      <a [routerLink]="['/']" class="-m-1.5 p-1.5">
         <span class="sr-only">Market</span>
         <!-- Logo -->
         <svg
@@ -36,13 +36,15 @@
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
+      <a
+        [routerLink]="['/']"
+        class="text-sm font-semibold leading-6 text-gray-900"
         >Usuario</a
       >
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
+      <a [routerLink]="['/']" class="text-sm font-semibold leading-6 text-gray-900"
         >Marketplace</a
       >
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
+      <a [routerLink]="['/']" class="text-sm font-semibold leading-6 text-gray-900"
         >Company</a
       >
     </div>
@@ -66,7 +68,6 @@
     role="dialog"
     aria-modal="true"
     [ngClass]="isHeaderOpen ? 'opacity-100' : 'opacity-0'"
-    
   >
     <!-- Background backdrop, show/hide based on slide-over state. -->
     <div
@@ -78,7 +79,7 @@
       @slideInOut
     >
       <div class="flex items-center justify-between">
-        <a href="#" class="-m-1.5 p-1.5">
+        <a [routerLink]="['/']" class="-m-1.5 p-1.5">
           <!-- <span class="sr-only">Your Company</span> -->
           <span>Market Store</span>
         </a>
@@ -95,24 +96,24 @@
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 py-6">
             <a
-              href="#"
+              [routerLink]="['/']"
               class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >Features</a
             >
             <a
-              href="#"
+              [routerLink]="['/']"
               class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >Marketplace</a
             >
             <a
-              href="#"
+              [routerLink]="['/']"
               class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >Company</a
             >
           </div>
           <div class="py-6">
             <a
-              href="#"
+              [routerLink]="['/']"
               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >Log in</a
             >

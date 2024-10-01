@@ -50,3 +50,23 @@ p {
 ::-webkit-scrollbar-thumb {
   max-height: 200px; /* Minimum height of the thumb handle */
 }
+
+.transition-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #e8ff00; /* Color de fondo */
+  transform: translateX(100%); /* Oculto a la izquierda */
+  z-index: 50; /* Asegúrate de que esté encima de otros elementos */
+}
+
+.transition-panel.visible {
+  /* visibility: visible; */
+  transform: translateX(0); /* Se muestra en su posición original */
+}
+
+.transition-panel.left {
+  transform: translateX(-100%); /* Mueve el panel a la derecha para salir */
+}
