@@ -86,7 +86,7 @@ export class HeaderComponent {
   constructor(private authService: AuthService, private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.toggleHeaderOpen();
+        this.isHeaderOpen = false;
       }
     });
   }

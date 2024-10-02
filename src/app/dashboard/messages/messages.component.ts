@@ -10,7 +10,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [CommonModule, IconComponent, RouterModule, FormsModule, MatTooltipModule],
+  imports: [
+    CommonModule,
+    IconComponent,
+    RouterModule,
+    FormsModule,
+    MatTooltipModule,
+  ],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.css',
 })
@@ -25,7 +31,6 @@ export class MessagesComponent {
     private messagesService: MessagesService
   ) {
     this.currentUrl = this.router.url;
-    console.log(this.currentUrl);
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;

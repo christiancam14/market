@@ -4,8 +4,9 @@
   <div
     class="px-0 md:px-6 lg:px-8 mx-auto max-w-7xl flex flex-col gap-6 min-h-[calc(100dvh-80px)]"
   >
+    <!-- class="flex overflow-x-hidden justify-end min-h-[calc(100vh-80px)] overflow-hidden" -->
     <div
-      class="flex max-h-[calc(100dvh-80px)] overflow-x-hidden justify-end min-h-[calc(100dvh-80px)] overflow-hidden"
+      class="flex overflow-x-hidden justify-end h-[calc(100vh-80px)] overflow-hidden"
     >
       <!-- Sidebar -->
       <div
@@ -14,16 +15,14 @@
             ? ' w-full md:w-1/4'
             : 'scale-x-0 w-0 transform-none overflow-x-hidden md:w-14'
         "
-        class="bg-blanco border-r border-gray-300 transition-all duration-300 ease-linear"
+        class="bg-blanco border-r border-gray-300 transition-all duration-300 h-auto ease-linear"
       >
         <!-- Sidebar Header -->
         <header
-          class="p-4 border-b border-gray-300 flex justify-between items-center bg-azul-900 text-blanco shadow-lg h-14 md:h-16"
+          class="sticky top-0 p-4 border-b border-gray-300 flex justify-between items-center bg-azul-900 text-blanco shadow-lg h-14 md:h-16"
         >
           <h5 class="text-xl font-semibold">
-            <span [ngClass]="isOpen ? 'block' : 'hidden'">
-              Mensajes {{ isOpen }}
-            </span>
+            <span [ngClass]="isOpen ? 'block' : 'hidden'"> Mensajes </span>
           </h5>
           <div class="relative" (click)="toggleSideBar()">
             <button id="menuButton" class="hidden md:block focus:outline-none">
@@ -38,7 +37,7 @@
 
         <!-- Contact List -->
         <div
-          class="overflow-y-auto h-[calc(100%-60px)] p-3 mb-9 pb-20"
+          class="overflow-y-auto h-[calc(100%-100px)] p-3 mb-9"
           [ngClass]="
             isOpen ? 'scale-x-100 md:scale-x-100' : 'scale-x-0 md:scale-x-100'
           "
@@ -91,7 +90,7 @@
         [ngClass]="
           isOpen
             ? 'w-0 scale-x-0 md:flex-1 transform-none overflow-x-hidden'
-            : ' w-full md:w-auto flex-1'
+            : ' w-full md:w-auto flex-1 '
         "
         class="relative transition-all duration-300 ease-linear"
       >

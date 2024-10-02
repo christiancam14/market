@@ -1,7 +1,9 @@
 @if (!url.startsWith('/messages')) {
 <div [@panelState]="panelState" class="transition-panel"></div>
 }
-<app-header />
+<div class="h-16 md:h-20">
+    <app-header />
+</div>
 <router-outlet></router-outlet>
 
 @if (!url.startsWith('/messages')) {
