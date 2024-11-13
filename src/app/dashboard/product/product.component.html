@@ -1,0 +1,27 @@
+<section class="bg-azul-900">
+  <div class="p-6 lg:p-8 mx-auto max-w-7xl flex flex-col gap-6">
+    <!-- Mostrar mensaje de error si ocurre algún problema -->
+    <div *ngIf="errorMessage" class="text-red-500">
+      <p>{{ errorMessage }}</p>
+    </div>
+
+    <!-- Mostrar mensaje de carga mientras se espera la respuesta -->
+    <div *ngIf="isLoading">
+      <p style="color: white">Loading product...</p>
+    </div>
+
+    <!-- Mostrar el producto una vez cargado -->
+    <div *ngIf="product && !isLoading">
+      <h1 class="custom-style !text-2xl font-medium mb !text-blanco">
+        {{ product.name }}
+      </h1>
+      <p>Price: {{ product.price }}</p>
+      <img
+        [src]="product.imageUrl"
+        alt="Imagen de producto"
+        width="250"
+        height="250"
+      />
+    </div>
+  </div>
+</section>

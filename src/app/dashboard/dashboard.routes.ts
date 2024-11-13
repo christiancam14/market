@@ -3,6 +3,7 @@ import { DashboardComponent } from './dashboard.component';
 import { LayoutComponent } from '../shared/ui/layout/layout.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageDetailComponent } from './messages/message-detail/message-detail.component';
+import { ProductComponent } from './product/product.component';
 
 export default [
   {
@@ -12,6 +13,10 @@ export default [
       {
         path: '',
         loadComponent: () => DashboardComponent,
+      },
+      {
+        path: 'product/:id',
+        loadComponent: () => ProductComponent,
       },
       {
         path: 'messages',
