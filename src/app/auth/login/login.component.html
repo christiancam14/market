@@ -2,42 +2,56 @@
   class="relative w-full flex antialiased flex-col justify-center overflow-hidden py-6 sm:py-12"
 >
   <div class="relative py-3 w-full sm:w-96 max-w-max mx-auto text-center">
-
     <div class="mt-4 bg-g rounded-lg text-left">
       <div class="px-2 py-6">
-        <label class="block font-semibold text-claro"> Correo </label>
-        <input
-          type="text"
-          placeholder="Email"
-          class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md"
-        />
-        <label class="block mt-3 font-semibold text-claro"> Contraseña </label>
-        <input
-          type="password"
-          placeholder="Password"
-          class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md"
-        />
-        <div
-          class="flex flex-col mt-4 md:flex-row items-center gap-4 justify-between md:items-baseline"
-        >
-          <button
-            type="submit"
-            class="mt-4 transition-all bg-limon-600 hover:bg-limon-800 font-bold py-2 px-6 rounded-md"
-            (click)="onSubmit()"
-          >
-            Iniciar sesión
-          </button>
-          <a class="text-sm text-limon-600 hover:underline"
-            >Olvidaste tu contraseña?</a
-          >
-        </div>
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <!-- Correo -->
+          <label class="block font-semibold text-claro">Correo</label>
+          <input
+            type="text"
+            placeholder="Email"
+            class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md"
+            [(ngModel)]="credentials.email"  
+            name="email"
+            required
+            #email="ngModel"
+            [ngClass]="{'border-red-500': email.invalid && email.touched}"
+          />
+          <div *ngIf="email.invalid && email.touched" class="text-red-500 text-xs">
+            El correo es obligatorio
+          </div>
+
+          <!-- Contraseña -->
+          <label class="block mt-3 font-semibold text-claro">Contraseña</label>
+          <input
+            type="password"
+            placeholder="Password"
+            class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md"
+            [(ngModel)]="credentials.password"
+            name="password"
+            required
+            #password="ngModel" 
+            [ngClass]="{'border-red-500': password.invalid && password.touched}"
+          />
+          <div *ngIf="password.invalid && password.touched" class="text-red-500 text-xs">
+            La contraseña es obligatoria
+          </div>
+
+          <div class="flex flex-col mt-4 md:flex-row items-center gap-4 justify-between md:items-baseline">
+            <button
+              type="submit"
+              class="mt-4 transition-all bg-limon-600 hover:bg-limon-800 font-bold py-2 px-6 rounded-md"
+              [disabled]="loginForm.invalid"
+            >
+              Iniciar sesión
+            </button>
+            <a class="text-sm text-limon-600 hover:underline">Olvidaste tu contraseña?</a>
+          </div>
+        </form>
+
         <div class="pt-6 text-claro flex flex-col text-sm items-center">
-          <span> ¿Aún no tienes una cuenta? </span>
-          <a
-            [routerLink]="['/auth/register']"
-            class="text-limon-600 hover:underline"
-            >Registrate</a
-          >
+          <span>¿Aún no tienes una cuenta?</span>
+          <a [routerLink]="['/auth/register']" class="text-limon-600 hover:underline">Registrate</a>
         </div>
       </div>
     </div>
