@@ -4,6 +4,7 @@ import { LayoutComponent } from '../shared/ui/layout/layout.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageDetailComponent } from './messages/message-detail/message-detail.component';
 import { ProductComponent } from './product/product.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export default [
   {
@@ -17,6 +18,10 @@ export default [
       {
         path: 'product/:id',
         loadComponent: () => ProductComponent,
+      },
+      {
+        path: 'perfil',
+        loadComponent: () => ProfileComponent,
       },
       {
         path: 'messages',

@@ -1,0 +1,24 @@
+<section class="bg-azul-900">
+  <div class="p-6 lg:p-8 mx-auto max-w-7xl flex flex-col gap-6">
+    <!-- Mostrar mensaje de error si ocurre algún problema -->
+    <!-- https://placehold.co/400x400/EEE/31343C?font=montserrat&text=Christian+Camacho -->
+    <!-- Mostrar mensaje de error si ocurre algún problema -->
+    <div *ngIf="errorMessage" class="text-red-500">
+      <p>{{ errorMessage }}</p>
+    </div>
+
+    <!-- Mostrar mensaje de carga mientras se espera la respuesta -->
+    <div *ngIf="isLoading">
+      <p style="color: white">Cargando perfil...</p>
+    </div>
+
+    <!-- Mostrar el producto una vez cargado -->
+    <div *ngIf="user && !isLoading">
+      <h1 class="custom-style !text-2xl font-medium mb !text-blanco">
+        {{ user.username }}
+      </h1>
+      <p style="color: white">email: {{ user.email }}</p>
+      <img [src]="imgUrl" alt="Imagen de producto" width="250" height="250" />
+    </div>
+  </div>
+</section>
