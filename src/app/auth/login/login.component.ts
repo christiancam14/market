@@ -27,7 +27,12 @@ export class LoginComponent {
         console.log(res);
         if (res.ok) {
           localStorage.setItem('authToken', res.token);
-          // this.router.navigate(['/dashboard']); // Redirigir a la página de inicio
+          localStorage.setItem('userRole', res.role);
+          if (res.role === 'ADMIN') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
         } else {
           this.errorMessage = res.msg;
         }

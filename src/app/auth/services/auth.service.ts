@@ -3,7 +3,10 @@ import { UserRole } from '../../core/enums/user-role.enum';
 import { environment } from '../../../environments/environmets';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { LoginErrorResponse, LoginResponse } from '../../core/interfaces/Auth';
+import {
+  LoginRegisterErrorResponse,
+  LoginRegisterResponse,
+} from '../../core/interfaces/Auth';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,32 +20,37 @@ export class AuthService {
   login(credentials: {
     email: string;
     password: string;
-  }): Observable<LoginResponse | LoginErrorResponse> {
-    /*
-    const resp = this.http.post<LoginResponse | LoginErrorResponse>(
-      `${this.baseUrl}/login`,
-      credentials
-    );
-    */
-
+  }): Observable<LoginRegisterErrorResponse | LoginRegisterResponse> {
     return this.http
       .post(`${this.baseUrl}/login`, credentials)
-      .pipe(map((res) => res as LoginResponse | LoginErrorResponse));
+      .pipe(
+        map((res) => res as LoginRegisterErrorResponse | LoginRegisterResponse)
+      );
+  }
 
-    // return resp;
+  register(credentials: {
+    email: string;
+    password: string;
+  }): Observable<LoginRegisterErrorResponse | LoginRegisterResponse> {
+    return this.http
+      .post(`${this.baseUrl}/login`, credentials)
+      .pipe(
+        map((res) => res as LoginRegisterErrorResponse | LoginRegisterResponse)
+      );
   }
 
   isAuthenticated(): boolean {
-    // return !!localStorage.getItem('token');
-    return this.userRole !== UserRole.Guest;
+    return !!localStorage.getItem('authToken');
   }
 
   isBaseUser(): boolean {
-    return this.userRole === UserRole.User;
+    const userRole = localStorage.getItem('userRole'); 
+    return userRole === UserRole.User;
   }
 
   isAdmin(): boolean {
-    return this.userRole === UserRole.Admin;
+    const userRole = localStorage.getItem('userRole'); 
+    return userRole === UserRole.Admin;
   }
 
   setUserRole(role: UserRole) {

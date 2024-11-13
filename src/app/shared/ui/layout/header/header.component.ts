@@ -100,6 +100,7 @@ export class HeaderComponent {
   }
 
   onLogOut() {
+    localStorage.clear();
     this.router.navigate(['/auth/login']);
   }
 

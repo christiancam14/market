@@ -8,7 +8,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     canActivate: [
-      // guestGuard
+      guestGuard
     ],
     loadChildren: () => import('./auth/auth.routes'),
   },
@@ -16,14 +16,14 @@ export const routes: Routes = [
   {
     path: 'admin',
     canActivate: [
-      // adminGuard
+      adminGuard
     ],
     loadChildren: () => import('./admin/admin.routes'),
   },
   {
     path: '',
     canActivate: [
-      // userGuard
+      userGuard
     ],
     loadChildren: () => import('./dashboard/dashboard.routes'),
   },
