@@ -88,7 +88,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.createChat(contactId);
     }
     // Redirigir a la pantalla del chat (si es necesario)
-    this.router.navigate([`/chat/${contactId}`]);
+    this.router.navigate([`/messages/${contactId}`]);
   }
 
   createChat(contactId: string): void {

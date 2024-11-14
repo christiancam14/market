@@ -70,7 +70,10 @@
               class="w-12 h-auto bg-gray-300 rounded-full"
             >
               <img
-                [src]="contact.avatarUrl"
+                [src]="
+                  'https://placehold.co/200x200/EEE/31343C?font=montserrat&text=' +
+                  contact.username
+                "
                 alt="User Avatar"
                 class="w-12 h-auto rounded-full"
               />
@@ -79,7 +82,7 @@
               class="flex-1 max-w-[calc(100%-60px)]"
               [ngClass]="isOpen ? 'block' : 'hidden'"
             >
-              <h5 class="!text-lg !font-medium m-0">{{ contact.name }}</h5>
+              <h5 class="!text-lg !font-medium m-0">{{ contact.username }}</h5>
               <p
                 class="text-gris !text-base !truncate"
                 [matTooltip]="contact.message"

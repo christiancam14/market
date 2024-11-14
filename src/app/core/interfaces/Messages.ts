@@ -1,5 +1,6 @@
 export interface Contact {
   name: string;
+  username?: string;
   avatarUrl: string;
   message: string;
   messages?: Message[]; 

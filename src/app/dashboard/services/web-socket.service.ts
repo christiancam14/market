@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Contact } from '../../core/interfaces/Messages';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environmets';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WebSocketService {
+  private baseUrl = `${environment.endpoint}/api`;
   private socket: WebSocket | null = null;
   private messagesSubject: Subject<string> = new Subject<string>(); // Para manejar los mensajes
   private activeChatsSubject: Subject<Contact[]> = new Subject<Contact[]>();
@@ -38,7 +40,7 @@ export class WebSocketService {
   }
 
   getAllContacts(): Observable<Contact[]> {
-    return this.httpClient.get<Contact[]>('/api/contacts'); // Cambia esta URL por la de tu API
+    return this.httpClient.get<Contact[]>(`${this.baseUrl}/users/all?role=USER`); // Cambia esta URL por la de tu API
   }
 
   // Enviar un mensaje al servidor WebSocket
