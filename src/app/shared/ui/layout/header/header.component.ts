@@ -62,6 +62,7 @@ import {
 export class HeaderComponent {
   isHeaderOpen: boolean = false;
   isHavingMessages: boolean = false;
+  userName: string = localStorage.getItem('userName') || 'Usuario';
   navOptions: {
     label: string;
     url: string;

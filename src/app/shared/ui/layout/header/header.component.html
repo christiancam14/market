@@ -3,7 +3,7 @@
     class="mx-auto flex max-w-7xl items-center justify-between p-4 md:p-6 lg:px-8"
     aria-label="Global"
   >
-    <div class="flex lg:flex-1">
+    <div class="flex lg:flex-1 gap-4">
       <a [routerLink]="['/']" class="-m-1.5 p-1.5">
         <span class="sr-only">Market</span>
         <!-- Logo -->
@@ -24,6 +24,10 @@
           </g>
         </svg>
       </a>
+
+      <p style="align-content: center; font-weight: 500; font-size: 20px">
+        {{ userName }}
+      </p>
     </div>
     <div class="flex lg:hidden">
       <button
@@ -53,7 +57,9 @@
       >
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
-      <button (click)="toggleMessages()">Activar mensaje: {{ isHavingMessages }}</button>
+      <button (click)="toggleMessages()">
+        Activar mensaje: {{ isHavingMessages }}
+      </button>
 
       @for (item of navOptions; track $index) {
 
