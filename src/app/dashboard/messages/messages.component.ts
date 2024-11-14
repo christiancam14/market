@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IconComponent } from '../../shared/ui/icon/icon.component';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { MessagesService } from '../services/messages.service';
 import { Contact } from '../../core/interfaces/Messages';
-import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { WebSocketService } from '../services/web-socket.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-messages',
@@ -14,21 +16,23 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     CommonModule,
     IconComponent,
     RouterModule,
-    FormsModule,
     MatTooltipModule,
+    FormsModule,
   ],
   templateUrl: './messages.component.html',
-  styleUrl: './messages.component.css',
+  styleUrls: ['./messages.component.css'],
 })
-export class MessagesComponent {
+export class MessagesComponent implements OnInit, OnDestroy {
   public currentUrl: string;
   isOpen: boolean = true;
   contacts: Contact[] = [];
   searchTerm: string = '';
+  private wsSubscription: Subscription | null = null; // Para almacenar la suscripción al WebSocket
 
   constructor(
     private router: Router,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private webSocketService: WebSocketService // Inyectar WebSocketService
   ) {
     this.currentUrl = this.router.url;
     this.router.events.subscribe((event) => {
@@ -39,9 +43,12 @@ export class MessagesComponent {
   }
 
   ngOnInit(): void {
-    this.messagesService.getContacts().subscribe((data) => {
-      this.contacts = data;
-    });
+    // Suscripción al WebSocket para obtener todos los contactos
+    this.wsSubscription = this.webSocketService
+      .getAllContacts()  // Asegúrate de tener este método en tu servicio
+      .subscribe((data: Contact[]) => {
+        this.contacts = data;
+      });
 
     // Suscripción al estado del sidebar
     this.messagesService.getIsOpen().subscribe((state) => {
@@ -49,9 +56,17 @@ export class MessagesComponent {
     });
   }
 
+  ngOnDestroy(): void {
+    // Cancelar la suscripción al WebSocket al destruir el componente
+    if (this.wsSubscription) {
+      this.wsSubscription.unsubscribe();
+    }
+  }
+
   get filteredContacts() {
+    // Filtrar los contactos por el término de búsqueda
     if (!this.searchTerm) {
-      return this.contacts; // Si no hay término de búsqueda, devuelve todos los contactos
+      return this.contacts;
     }
     return this.contacts.filter((contact) =>
       contact.name.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -63,10 +78,26 @@ export class MessagesComponent {
     this.messagesService.setIsOpen(this.isOpen);
   }
 
-  onClickChat(userId: string): void {
-    if (this.isOpen) {
-      this.toggleSideBar();
+  onClickChat(contactId: string) {
+    // Aquí usas la variable "contacts" en lugar de "chats"
+    const chatExistente = this.contacts.find(
+      (contact) => contact.id === contactId
+    );
+    if (!chatExistente) {
+      // Crear el chat
+      this.createChat(contactId);
     }
-    this.router.navigate(['/messages', userId]);
+    // Redirigir a la pantalla del chat (si es necesario)
+    this.router.navigate([`/chat/${contactId}`]);
+  }
+
+  createChat(contactId: string): void {
+    // Lógica para crear un chat nuevo si no hay chats activos
+    this.webSocketService.createChat(contactId).subscribe(() => {
+      // Después de crear el chat, podemos obtener los chats activos de nuevo
+      this.webSocketService.getActiveChats().subscribe((data: Contact[]) => {
+        this.contacts = data;
+      });
+    });
   }
 }
