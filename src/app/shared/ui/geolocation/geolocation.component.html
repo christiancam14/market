@@ -1,4 +1,4 @@
-<section class="location-section bg-gray-100 py-8">
+<section class="location-section py-8">
   <div class="container mx-auto max-w-md p-6 bg-white shadow-lg rounded-lg">
     <h2 class="text-2xl font-bold text-gray-800 mb-4">Mi Ubicación</h2>
 
@@ -19,7 +19,15 @@
     <div *ngIf="latitude && longitude" class="text-gray-700">
       <p><span class="font-semibold">Latitud:</span> {{ latitude }}</p>
       <p><span class="font-semibold">Longitud:</span> {{ longitude }}</p>
-      <div #map id="map" style="height: 400px;"></div>
+      <!-- <div #map id="map" style="height: 400px"></div> -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d110121.68238928924!2d-75.60824081895214!3d4.784080674409556!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1731904257867!5m2!1ses!2sco"
+        style="border: 0"
+        allowfullscreen=""
+        class="w-full"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
     </div>
 
     <!-- Mostrar dirección si está disponible -->

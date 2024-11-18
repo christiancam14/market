@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environmets';
 import { map, Observable } from 'rxjs';
 import { User } from '../../core/interfaces/User';
+import { Contact } from '../../core/interfaces/Messages';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +46,16 @@ export class UserService {
     return this.http.put<User>(
       `${this.baseUrl}/users/${userId}/update`,
       formData
+    );
+  }
+
+  getAllContacts(): Observable<Contact[]> {
+    return this.http.get<Contact[]>(`${this.baseUrl}/users/all?role=USER`);
+  }
+
+  getMyContacts(userId: string): Observable<Contact[]> {
+    return this.http.get<Contact[]>(`${this.baseUrl}/contacts/${userId}`).pipe(
+      map((response: any[]) => response.map((contact) => contact.contactUser)) // Mapea solo los contactos
     );
   }
 }

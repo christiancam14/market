@@ -77,6 +77,12 @@ export class HeaderComponent {
       className: () => '',
     },
     {
+      label: 'Contactos',
+      url: '/contactos',
+      icon: () => 'contacts',
+      className: () => '',
+    },
+    {
       label: 'Mensajes',
       url: '/messages',
       icon: () => (this.isHavingMessages ? 'mark_chat_unread' : 'chat_bubble'),

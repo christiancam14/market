@@ -7,6 +7,7 @@ import { ProductComponent } from './product/product.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { CreateProductComponent } from './product/create-product/create-product.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 export default [
   {
@@ -24,6 +25,10 @@ export default [
       {
         path: 'crear-producto',
         loadComponent: () => CreateProductComponent,
+      },
+      {
+        path: 'contactos',
+        loadComponent: () => ContactsComponent,
       },
       {
         path: 'perfil',

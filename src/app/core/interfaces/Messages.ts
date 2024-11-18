@@ -5,6 +5,7 @@ export interface Contact {
   message: string;
   messages?: Message[]; 
   chat: ChatMessage[];
+  email?: string;
   id: string;
 }
 
