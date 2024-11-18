@@ -1,37 +1,48 @@
 <!-- component -->
-<div class="container mx-auto w-full bg-white rounded-lg shadow-lg p-6">
-  <div class="card flex flex-col justify-center bg-white rounded-lg shadow-lg hover:scale-105 transition-transform ease-in-out duration-300">
+<div class="container mx-auto w-full bg-white rounded-lg p-6">
+  <div class="card flex flex-col justify-center bg-white rounded-lg">
     <!-- Product Title and Category -->
     <div class="prod-title mb-4">
-      <p class="text-2xl font-semibold text-gray-900 tracking-tight">{{ product.name }}</p>
-      <p class="uppercase text-xs text-gray-500 tracking-wide">{{ product.category }}</p>
+      <p class="!text-lg !font-semibold !text-gray-900 tracking-tight">
+        {{ product.name }}
+      </p>
+      <p class="uppercase text-xs !text-gray-500 tracking-wide">
+        {{ product.category }}
+      </p>
     </div>
 
     <!-- Product Image -->
-    <div class="prod-img mb-6">
-      <img [src]="product.imageUrl" class="w-full h-64 object-cover rounded-lg shadow-md" />
+    <div
+      class="prod-img mb-6 hover:scale-105 transition-transform ease-in-out duration-300"
+    >
+      <img
+        [src]="product.imageUrl"
+        class="w-full h-64 object-cover rounded-lg shadow-md"
+      />
     </div>
 
     <!-- Product Info -->
     <div class="prod-info">
       <div class="flex justify-between items-center mb-4">
         <!-- Price -->
-        <p class="font-semibold text-xl text-gray-800">{{ product.price | currency }}</p>
+        <p class="font-semibold text-xl !text-gray-800">
+          {{ product.price | currency }}
+        </p>
         <!-- View Button -->
+      </div>
+
+      <!-- Add to Cart (optional) -->
+      <div class="flex justify-between items-center">
         <a
           class="px-6 py-2 bg-gray-900 text-white text-sm font-semibold rounded-full transition-all hover:bg-gray-800"
           [routerLink]="['/product/' + product.id]"
         >
           Ver
         </a>
-      </div>
-
-      <!-- Add to Cart (optional) -->
-      <div class="flex justify-between items-center">
         <button
-          class="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-full transition-all hover:bg-blue-400"
+          class="px-4 py-2 bg-azul-800 text-white text-sm font-semibold rounded-full transition-all hover:bg-gray-400"
         >
-          Agregar al carrito
+          <app-icon name="add_shopping_cart" />
         </button>
       </div>
     </div>

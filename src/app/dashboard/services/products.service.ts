@@ -33,4 +33,27 @@ export class ProductsService {
   createProduct(payload: { userId: string; product: any }): Observable<any> {
     return this.http.post(`${this.baseUrl}/create`, payload);
   }
+
+  likeProduct(userId: string, productId: string) {
+    console.log('Llega');
+    const url = `${this.baseUrl}/products/${productId}/likes`;
+    const formData = new FormData();
+    formData.append('userId', userId);
+    return this.http.post(url, formData);
+  }
+
+  addComment(
+    productId: string,
+    userId: string,
+    commentText: string
+  ): Observable<any> {
+    const url = `${this.baseUrl}/products/${productId}/comments`;
+
+    const body = {
+      userId,
+      commentText,
+    };
+
+    return this.http.post(url, body);
+  }
 }

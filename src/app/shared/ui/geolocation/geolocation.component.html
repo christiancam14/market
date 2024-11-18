@@ -1,0 +1,35 @@
+<section class="location-section bg-gray-100 py-8">
+  <div class="container mx-auto max-w-md p-6 bg-white shadow-lg rounded-lg">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Mi Ubicación</h2>
+
+    <!-- Botón para obtener la ubicación -->
+    <button
+      (click)="getLocation()"
+      class="py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-500 mb-4"
+    >
+      Obtener mi ubicación
+    </button>
+
+    <!-- Mostrar el estado de carga -->
+    <div *ngIf="isLoading" class="text-gray-500 animate-pulse">
+      Cargando ubicación...
+    </div>
+
+    <!-- Mostrar coordenadas -->
+    <div *ngIf="latitude && longitude" class="text-gray-700">
+      <p><span class="font-semibold">Latitud:</span> {{ latitude }}</p>
+      <p><span class="font-semibold">Longitud:</span> {{ longitude }}</p>
+      <div #map id="map" style="height: 400px;"></div>
+    </div>
+
+    <!-- Mostrar dirección si está disponible -->
+    <div *ngIf="address" class="mt-4 text-gray-700">
+      <p><span class="font-semibold">Dirección:</span> {{ address }}</p>
+    </div>
+
+    <!-- Mensaje de error si ocurre algún problema -->
+    <div *ngIf="errorMessage" class="text-red-600 mt-4">
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
+</section>

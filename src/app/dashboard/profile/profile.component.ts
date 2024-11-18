@@ -7,11 +7,12 @@ import { User } from '../../core/interfaces/User';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../../core/interfaces/Products';
 import { ProductCardComponent } from '../../shared/ui/product-card/product-card.component';
+import { GeolocationComponent } from "../../shared/ui/geolocation/geolocation.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent],
+  imports: [CommonModule, ProductCardComponent, GeolocationComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })

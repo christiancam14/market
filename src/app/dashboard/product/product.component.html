@@ -1,27 +1,89 @@
-<section class="bg-azul-900">
-  <div class="p-6 lg:p-8 mx-auto max-w-7xl flex flex-col gap-6">
+<section class="bg-azul-900 py-8">
+  <div class="container mx-auto max-w-6xl p-6 bg-white shadow-lg rounded-lg">
     <!-- Mostrar mensaje de error si ocurre algún problema -->
-    <div *ngIf="errorMessage" class="text-red-500">
+    <div *ngIf="errorMessage" class="text-red-600 text-center mb-4">
       <p>{{ errorMessage }}</p>
     </div>
 
     <!-- Mostrar mensaje de carga mientras se espera la respuesta -->
-    <div *ngIf="isLoading">
-      <p style="color: white">Loading product...</p>
+    <div *ngIf="isLoading" class="text-center">
+      <p class="text-gray-500 animate-pulse">Cargando producto...</p>
     </div>
 
     <!-- Mostrar el producto una vez cargado -->
-    <div *ngIf="product && !isLoading">
-      <h1 class="custom-style !text-2xl font-medium mb !text-blanco">
-        {{ product.name }}
-      </h1>
-      <p>Price: {{ product.price }}</p>
-      <img
-        [src]="product.imageUrl"
-        alt="Imagen de producto"
-        width="250"
-        height="250"
-      />
+    <div *ngIf="product && !isLoading" class="flex gap-8">
+      <!-- Imagen del producto -->
+      <div class="flex items-center justify-center">
+        <img
+          [src]="product.imageUrl"
+          alt="Imagen de {{ product.name }}"
+          class="rounded-lg w-64 max-w-md object-cover shadow-md"
+        />
+      </div>
+
+      <!-- Información del producto -->
+      <div>
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">
+          {{ product.name }}
+        </h1>
+        <p class="text-lg text-gray-600 mb-2">
+          <span class="font-semibold">Categoría:</span> {{ product.category }}
+        </p>
+        <p class="text-lg text-gray-600 mb-2">
+          <span class="font-semibold">Estado:</span> {{ product.status }}
+        </p>
+        <p class="text-2xl font-bold text-green-600 mb-4">
+          ${{ product.price | number : "1.2-2" }}
+        </p>
+        <button
+          class="py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-500"
+        >
+          Comprar ahora
+        </button>
+      </div>
+    </div>
+
+    <!-- Sección de comentarios -->
+    <div class="mt-8">
+      <h2 class="!text-xl !font-bold !text-gray-800 mb-4">Comentarios</h2>
+      <!-- Formulario para agregar un comentario -->
+      <form (ngSubmit)="addComment()" class="mt-4">
+        <textarea
+          [(ngModel)]="newComment"
+          name="comment"
+          class="w-full p-3 border rounded-lg"
+          rows="3"
+          placeholder="Agrega un comentario"
+          required
+        ></textarea>
+        <button
+          type="submit"
+          class="mt-2 py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-500"
+        >
+          Agregar comentario
+        </button>
+      </form>
+      <!-- Lista de comentarios -->
+      <div
+        *ngFor="let comment of product?.comments || []"
+        class="bg-gray-50 p-4 rounded-lg shadow-sm mb-4"
+      >
+        <p class="text-gray-700 mb-1">
+          <span class="font-semibold">{{ comment.user.firstName }}:</span>
+          {{ comment.commentText }}
+        </p>
+        <p class="text-sm text-gray-500">Email: {{ comment.user.email }}</p>
+      </div>
+    </div>
+
+    <!-- Sección de likes -->
+    <div class="mt-4 flex items-center gap-2">
+      <button
+        (click)="onClickLike()"
+        class="py-2 px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-400"
+      >
+        ❤️ {{ product?.likes?.length || 0 }} Me gusta
+      </button>
     </div>
   </div>
 </section>
