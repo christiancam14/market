@@ -1,77 +1,38 @@
 <!-- component -->
-<div class="container mx-auto w-full bg-blanco rounded-md">
-  <div
-    class="card flex flex-col justify-center p-6 bg-white rounded-lg shadow-lg"
-  >
-    <div class="prod-title">
-      <p
-        class="text-2xl uppercase text-gray-900 font-bold"
-        style="font-weight: 500"
-      >
-        {{ product.name }}
-      </p>
-      <p
-        class="uppercase text-sm"
-        style="color: grey; font-weight: 500; font-size: 12px"
-      >
-        {{ product.category }}
-      </p>
+<div class="container mx-auto w-full bg-white rounded-lg shadow-lg p-6">
+  <div class="card flex flex-col justify-center bg-white rounded-lg shadow-lg hover:scale-105 transition-transform ease-in-out duration-300">
+    <!-- Product Title and Category -->
+    <div class="prod-title mb-4">
+      <p class="text-2xl font-semibold text-gray-900 tracking-tight">{{ product.name }}</p>
+      <p class="uppercase text-xs text-gray-500 tracking-wide">{{ product.category }}</p>
     </div>
-    <div class="prod-img">
-      <img [src]="product.imageUrl" class="w-full object-cover object-center" />
+
+    <!-- Product Image -->
+    <div class="prod-img mb-6">
+      <img [src]="product.imageUrl" class="w-full h-64 object-cover rounded-lg shadow-md" />
     </div>
-    <div class="prod-info grid gap-10">
-      <div>
-        <!-- <ul class="flex flex-row justify-center items-center">
-          <li class="mr-4 last:mr-0">
-            <span
-              class="block p-1 border-2 border-gray-500 rounded-full transition ease-in duration-300"
-            >
-              <a
-                href="#blue"
-                class="block w-6 h-6 bg-blue-900 rounded-full"
-              ></a>
-            </span>
-          </li>
-          <li class="mr-4 last:mr-0">
-            <span
-              class="block p-1 border-2 border-white hover:border-gray-500 rounded-full transition ease-in duration-300"
-            >
-              <a
-                href="#yellow"
-                class="block w-6 h-6 bg-yellow-500 rounded-full"
-              ></a>
-            </span>
-          </li>
-          <li class="mr-4 last:mr-0">
-            <span
-              class="block p-1 border-2 border-white hover:border-gray-500 rounded-full transition ease-in duration-300"
-            >
-              <a href="#red" class="block w-6 h-6 bg-red-500 rounded-full"></a>
-            </span>
-          </li>
-          <li class="mr-4 last:mr-0">
-            <span
-              class="block p-1 border-2 border-white hover:border-gray-500 rounded-full transition ease-in duration-300"
-            >
-              <a
-                href="#green"
-                class="block w-6 h-6 bg-green-500 rounded-full"
-              ></a>
-            </span>
-          </li>
-        </ul> -->
-      </div>
-      <div
-        class="flex flex-col md:flex-row justify-between items-center text-gray-900"
-      >
-        <p class="font-bold text-xl">{{ product.price }}</p>
+
+    <!-- Product Info -->
+    <div class="prod-info">
+      <div class="flex justify-between items-center mb-4">
+        <!-- Price -->
+        <p class="font-semibold text-xl text-gray-800">{{ product.price | currency }}</p>
+        <!-- View Button -->
         <a
-          class="px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none"
+          class="px-6 py-2 bg-gray-900 text-white text-sm font-semibold rounded-full transition-all hover:bg-gray-800"
           [routerLink]="['/product/' + product.id]"
         >
           Ver
         </a>
+      </div>
+
+      <!-- Add to Cart (optional) -->
+      <div class="flex justify-between items-center">
+        <button
+          class="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-full transition-all hover:bg-blue-400"
+        >
+          Agregar al carrito
+        </button>
       </div>
     </div>
   </div>

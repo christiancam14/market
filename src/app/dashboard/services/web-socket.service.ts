@@ -10,40 +10,43 @@ import { environment } from '../../../environments/environmets';
 export class WebSocketService {
   private baseUrl = `${environment.endpoint}/api`;
   private socket: WebSocket | null = null;
-  private messagesSubject: Subject<string> = new Subject<string>(); // Para manejar los mensajes
+  private messagesSubject: Subject<string> = new Subject<string>();
   private activeChatsSubject: Subject<Contact[]> = new Subject<Contact[]>();
 
   constructor(private httpClient: HttpClient) {}
 
   // Abre la conexión WebSocket
   connect(userUuid: string): void {
-    // Establece la URL del WebSocket (ajusta según tu configuración)
     const wsUrl = `ws://localhost:8080/ws/chat?userUuid=${userUuid}`;
-
-    // Crea la conexión WebSocket
     this.socket = new WebSocket(wsUrl);
 
-    // Al recibir un mensaje, lo enviamos al observable
     this.socket.onmessage = (event) => {
-      this.messagesSubject.next(event.data);
+      const data = JSON.parse(event.data);
+
+      if (data.type === 'chatCreated') {
+        this.getActiveChats();  // Después de crear el chat, actualizar los chats activos
+      } else if (data.type === 'newMessage') {
+        this.messagesSubject.next(data.message);
+      } else if (data.type === 'activeChats') {
+        this.activeChatsSubject.next(data.chats); // Emitir los chats activos
+      }
     };
 
-    // Manejo de errores
     this.socket.onerror = (event) => {
       console.error('WebSocket error:', event);
     };
 
-    // Manejo de cierre de la conexión
     this.socket.onclose = (event) => {
       console.log('WebSocket closed:', event);
     };
   }
 
+  // Obtener todos los contactos
   getAllContacts(): Observable<Contact[]> {
-    return this.httpClient.get<Contact[]>(`${this.baseUrl}/users/all?role=USER`); // Cambia esta URL por la de tu API
+    return this.httpClient.get<Contact[]>(`${this.baseUrl}/users/all?role=USER`);
   }
 
-  // Enviar un mensaje al servidor WebSocket
+  // Enviar mensaje
   sendMessage(message: string): void {
     if (this.socket && this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(message);
@@ -52,13 +55,21 @@ export class WebSocketService {
     }
   }
 
-  getActiveChats(): Observable<Contact[]> {
-    return this.activeChatsSubject.asObservable();
+  // Obtener los chats activos
+  getActiveChats(): void {
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+      this.socket.send(JSON.stringify({ type: 'getActiveChats' }));
+    }
   }
 
-  // Observar los mensajes recibidos
-  getMessages() {
+  // Obtener los mensajes
+  getMessages(): Observable<string> {
     return this.messagesSubject.asObservable();
+  }
+
+  // Obtener los chats activos como un Observable
+  getActiveChatsObservable(): Observable<Contact[]> {
+    return this.activeChatsSubject.asObservable();
   }
 
   // Cerrar la conexión WebSocket
@@ -68,6 +79,7 @@ export class WebSocketService {
     }
   }
 
+  // Crear un chat
   createChat(contactId: string): Observable<any> {
     const message = {
       type: 'createChat',
@@ -77,7 +89,6 @@ export class WebSocketService {
       this.socket.send(JSON.stringify(message));
     }
 
-    // Puedes devolver un observable que se complete cuando el chat se haya creado
     return new Observable((observer) => {
       if (this.socket) {
         this.socket.onmessage = (event) => {

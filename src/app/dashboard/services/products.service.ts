@@ -19,9 +19,18 @@ export class ProductsService {
   }
 
   getProductById(id: string): Observable<Product> {
-    console.log(id);
     return this.http
       .get(`${this.baseUrl}/products/${id}`)
       .pipe(map((res) => res as Product));
+  }
+
+  getProductByUserId(id: string): Observable<Product[]> {
+    return this.http
+      .get(`${this.baseUrl}/products/user/${id}`)
+      .pipe(map((res) => res as Product[]));
+  }
+
+  createProduct(payload: { userId: string; product: any }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/create`, payload);
   }
 }

@@ -1,0 +1,165 @@
+<section class="bg-azul-900 text-white py-10">
+  <div
+    class="container mx-auto max-w-5xl p-6 lg:p-8 rounded-lg shadow-lg bg-azul-800"
+  >
+    <!-- Mostrar mensaje de error si ocurre algún problema -->
+    <div *ngIf="errorMessage" class="text-red-500 mb-4 text-center">
+      <p>{{ errorMessage }}</p>
+    </div>
+
+    <!-- Mostrar mensaje de carga mientras se espera la respuesta -->
+    <div *ngIf="isLoading" class="text-center text-gray-300">
+      <p>Cargando perfil...</p>
+    </div>
+
+    <!-- Formulario de edición de perfil -->
+    <div *ngIf="user && !isLoading">
+      <form (ngSubmit)="onSubmit($event)" class="space-y-6">
+        <!-- Sección de imagen de perfil -->
+        <div class="flex flex-col lg:flex-row items-center gap-6">
+          <!-- <div class="flex-shrink-0">
+            <img
+              [src]="
+                imgUrl ||
+                'https://placehold.co/250x250/EEE/31343C?font=montserrat&text=' +
+                  user.username
+              "
+              alt="{{ user.username }}"
+              class="rounded-full border-4 border-blanco w-48 h-48 object-cover"
+            />
+          </div> -->
+          <div class="flex-grow">
+            <!-- <label for="imageUrl" class="text-lg font-semibold block mb-2"
+              >Cambiar imagen</label
+            > -->
+
+            <!-- Contenedor del botón y vista previa -->
+            <div class="relative flex align-middle justify-center">
+              <!-- Input File oculto -->
+              <input
+                type="file"
+                id="imageUrl"
+                (change)="onImageChange($event)"
+                class="absolute inset-0 opacity-0 cursor-pointer"
+              />
+
+              <!-- Botón de subida -->
+              <button
+                type="button"
+                class="py-3 px-4 text-white bg-azul-700 hover:bg-azul-600 rounded-lg text-sm font-semibold transition duration-300 focus:outline-none absolute -bottom-5"
+              >
+                <app-icon name="add_photo_alternate" />
+              </button>
+
+              <!-- Vista previa de la imagen -->
+              <div *ngIf="imgUrl" class="mt-3">
+                <img
+                  [src]="imgUrl"
+                  alt="Vista previa"
+                  class="w-52 h-52 rounded-full object-cover border-2 border-azul-500"
+                />
+              </div>
+
+              <!-- Mostrar nombre de archivo -->
+              <p
+                *ngIf="fileName"
+                class="mt-2 text-sm text-azul-900 font-semibold"
+              >
+                {{ fileName }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección de información editable -->
+        <div class="space-y-4">
+          <div>
+            <label for="firstName" class="block text-lg font-semibold"
+              >Nombre</label
+            >
+            <input
+              type="text"
+              id="firstName"
+              [(ngModel)]="user.firstName"
+              name="firstName"
+              class="w-full p-3 mt-2 bg-azul-700 text-white rounded-md"
+              placeholder="Nombre"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="lastName" class="block text-lg font-semibold"
+              >Apellido</label
+            >
+            <input
+              type="text"
+              id="lastName"
+              [(ngModel)]="user.lastName"
+              name="lastName"
+              class="w-full p-3 mt-2 bg-azul-700 text-white rounded-md"
+              placeholder="Apellido"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="email" class="block text-lg font-semibold"
+              >Correo electrónico</label
+            >
+            <input
+              type="email"
+              id="email"
+              [(ngModel)]="user.email"
+              name="email"
+              class="w-full p-3 mt-2 bg-azul-700 text-white rounded-md"
+              placeholder="Email"
+              required
+              disabled
+            />
+          </div>
+
+          <div>
+            <label for="cedula" class="block text-lg font-semibold"
+              >Cédula</label
+            >
+            <input
+              type="text"
+              id="cedula"
+              [(ngModel)]="user.cedula"
+              name="cedula"
+              class="w-full p-3 mt-2 bg-azul-700 text-white rounded-md"
+              placeholder="Cédula"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="address" class="block text-lg font-semibold"
+              >Dirección</label
+            >
+            <input
+              type="text"
+              id="address"
+              [(ngModel)]="user.address"
+              name="address"
+              class="w-full p-3 mt-2 bg-azul-700 text-white rounded-md"
+              placeholder="Dirección"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Botón de guardar cambios -->
+        <div class="mt-6 flex justify-center">
+          <button
+            type="submit"
+            class="bg-azul-700 hover:bg-azul-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+          >
+            Guardar cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

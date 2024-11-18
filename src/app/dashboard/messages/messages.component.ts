@@ -1,23 +1,24 @@
+// messages.component.ts
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IconComponent } from '../../shared/ui/icon/icon.component';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { MessagesService } from '../services/messages.service';
-import { Contact } from '../../core/interfaces/Messages';
+import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { WebSocketService } from '../services/web-socket.service';
+import { Contact } from '../../core/interfaces/Messages';
+import { MessagesService } from '../services/messages.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
+import { IconComponent } from '../../shared/ui/icon/icon.component';
 
 @Component({
   selector: 'app-messages',
   standalone: true,
   imports: [
     CommonModule,
-    IconComponent,
     RouterModule,
     MatTooltipModule,
     FormsModule,
+    IconComponent,
   ],
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css'],
@@ -27,28 +28,31 @@ export class MessagesComponent implements OnInit, OnDestroy {
   isOpen: boolean = true;
   contacts: Contact[] = [];
   searchTerm: string = '';
-  private wsSubscription: Subscription | null = null; // Para almacenar la suscripción al WebSocket
+  private wsSubscription: Subscription | null = null; // Para la suscripción WebSocket
+  private userUuid: string | null = 'some-uuid'; // Debes obtener el UUID del usuario actual (ej. desde el auth)
 
   constructor(
     private router: Router,
     private messagesService: MessagesService,
-    private webSocketService: WebSocketService // Inyectar WebSocketService
+    private webSocketService: WebSocketService
   ) {
     this.currentUrl = this.router.url;
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentUrl = event.url;
-      }
-    });
   }
 
   ngOnInit(): void {
+    // Conectar al WebSocket al iniciar el componente
+    this.webSocketService.connect(this.userUuid!);
+
     // Suscripción al WebSocket para obtener todos los contactos
-    this.wsSubscription = this.webSocketService
-      .getAllContacts()  // Asegúrate de tener este método en tu servicio
-      .subscribe((data: Contact[]) => {
-        this.contacts = data;
-      });
+    this.webSocketService.getAllContacts().subscribe((data: Contact[]) => {
+      this.contacts = data;
+    });
+
+    // Suscripción al WebSocket para escuchar mensajes nuevos
+    this.webSocketService.getMessages().subscribe((message: string) => {
+      // Lógica para manejar nuevos mensajes
+      console.log('Nuevo mensaje:', message);
+    });
 
     // Suscripción al estado del sidebar
     this.messagesService.getIsOpen().subscribe((state) => {
@@ -61,6 +65,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
     if (this.wsSubscription) {
       this.wsSubscription.unsubscribe();
     }
+
+    // Desconectar el WebSocket
+    this.webSocketService.disconnect();
   }
 
   get filteredContacts() {
@@ -79,24 +86,25 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   onClickChat(contactId: string) {
-    // Aquí usas la variable "contacts" en lugar de "chats"
     const chatExistente = this.contacts.find(
       (contact) => contact.id === contactId
     );
+
     if (!chatExistente) {
-      // Crear el chat
+      // Crear el chat si no existe
       this.createChat(contactId);
     }
-    // Redirigir a la pantalla del chat (si es necesario)
+
+    // Redirigir al detalle del chat (con la ruta correcta)
     this.router.navigate([`/messages/${contactId}`]);
   }
 
   createChat(contactId: string): void {
-    // Lógica para crear un chat nuevo si no hay chats activos
+    // Llamar al servicio para crear el chat
     this.webSocketService.createChat(contactId).subscribe(() => {
-      // Después de crear el chat, podemos obtener los chats activos de nuevo
-      this.webSocketService.getActiveChats().subscribe((data: Contact[]) => {
-        this.contacts = data;
+      // Suscribirse a los chats activos para actualizarlos
+      this.webSocketService.getActiveChatsObservable().subscribe((chats) => {
+        this.contacts = chats; // Actualiza la lista de contactos con los chats activos
       });
     });
   }

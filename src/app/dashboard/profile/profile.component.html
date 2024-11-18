@@ -1,24 +1,94 @@
-<section class="bg-azul-900">
-  <div class="p-6 lg:p-8 mx-auto max-w-7xl flex flex-col gap-6">
+<section class="bg-azul-900 text-white py-10">
+  <div
+    class="container mx-auto max-w-5xl p-6 lg:p-8 rounded-lg shadow-lg bg-azul-800"
+  >
     <!-- Mostrar mensaje de error si ocurre algún problema -->
-    <!-- https://placehold.co/400x400/EEE/31343C?font=montserrat&text=Christian+Camacho -->
-    <!-- Mostrar mensaje de error si ocurre algún problema -->
-    <div *ngIf="errorMessage" class="text-red-500">
+    <div *ngIf="errorMessage" class="text-red-500 mb-4 text-center">
       <p>{{ errorMessage }}</p>
     </div>
 
     <!-- Mostrar mensaje de carga mientras se espera la respuesta -->
-    <div *ngIf="isLoading">
-      <p style="color: white">Cargando perfil...</p>
+    <div *ngIf="isLoading" class="text-center text-gray-300">
+      <p>Cargando perfil...</p>
     </div>
 
-    <!-- Mostrar el producto una vez cargado -->
-    <div *ngIf="user && !isLoading">
-      <h1 class="custom-style !text-2xl font-medium mb !text-blanco">
-        {{ user.username }}
-      </h1>
-      <p style="color: white">email: {{ user.email }}</p>
-      <img [src]="imgUrl" alt="Imagen de producto" width="250" height="250" />
+    <!-- Mostrar el perfil una vez cargado -->
+    <div
+      *ngIf="user && !isLoading"
+      class="flex flex-col lg:flex-row items-center lg:items-start gap-8"
+    >
+      <!-- Sección de imagen -->
+      <div class="flex-shrink-0">
+        <img
+          [src]="
+            imgUrl ||
+            'https://placehold.co/250x250/EEE/31343C?font=montserrat&text=' +
+              user.username
+          "
+          alt="{{ user.username }}"
+          class="rounded-full border-4 border-blanco w-48 h-48 object-cover"
+        />
+      </div>
+
+      <!-- Sección de información -->
+      <div class="flex-grow flex flex-col gap-2">
+        <h1 class="text-3xl font-bold mb-2">
+          {{ user.firstName }} {{ user.lastName }}
+        </h1>
+        <p class="text-lg mb-1">
+          <span class="font-semibold">Nombre de usuario:</span>
+          {{ user.username }}
+        </p>
+        <p class="text-lg mb-1">
+          <span class="font-semibold">Email:</span> {{ user.email }}
+        </p>
+        <p class="text-lg mb-1">
+          <span class="font-semibold">Cédula:</span> {{ user.cedula }}
+        </p>
+        <p class="text-lg mb-1">
+          <span class="font-semibold">Dirección:</span> {{ user.address }}
+        </p>
+        <p class="text-lg mb-1">
+          <span class="font-semibold">Rol:</span>
+          <span class="px-2 py-1 ml-4 rounded bg-azul-600 text-white">{{
+            user.role
+          }}</span>
+        </p>
+
+        <!-- Botón para editar perfil -->
+        <div class="mt-4">
+          <button
+            class="bg-azul-700 hover:bg-azul-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+            (click)="onEditProfile()"
+          >
+            Editar perfil
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="container mx-auto max-w-5xl p-6 lg:p-8 rounded-lg text-center">
+    <h2 class="text-center !my-4">Mis productos</h2>
+
+    <button
+      class="bg-azul-800 hover:bg-azul-600 text-white font-semibold py-2 px-4 rounded-lg transition !mb-4"
+      (click)="onCreateProduct()"
+    >
+      Crear producto
+    </button>
+
+    @if (products.length > 0) {
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-auto-fit gap-6"
+    >
+      @for (product of products; track $index) {
+      <app-product-card [product]="product" />
+      }
+    </div>
+    } @else {
+    <p class="">No hay productos</p>
+    }
   </div>
 </section>
