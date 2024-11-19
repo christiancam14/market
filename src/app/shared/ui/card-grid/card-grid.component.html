@@ -1,8 +1,18 @@
-<!-- <div class="flex flex-wrap gap-6"> -->
+@if(products && !isLoading) {
 <div
   class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-auto-fit gap-6"
 >
   @for (product of products; track $index) {
-    <app-product-card [product]="product" />
+  <app-product-card [product]="product" />
   }
 </div>
+
+} @else if (isLoading) {
+<div class="text-center !bg-azul-800 rounded-md p-6">
+  <p class="!text-white !animate-pulse">Cargando producto...</p>
+</div>
+} @else if (errorMessage) {
+<div class="text-red-600 text-center mb-4">
+  <p>{{ errorMessage }}</p>
+</div>
+}

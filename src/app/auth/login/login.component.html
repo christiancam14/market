@@ -11,15 +11,15 @@
             type="text"
             placeholder="Email"
             class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md"
-            [(ngModel)]="credentials.email"  
+            [(ngModel)]="credentials.email"
             name="email"
             required
             #email="ngModel"
-            [ngClass]="{'border-red-500': email.invalid && email.touched}"
+            [ngClass]="{ 'border-red-500': email.invalid && email.touched }"
           />
-          <div *ngIf="email.invalid && email.touched" class="text-red-500 text-xs">
-            El correo es obligatorio
-          </div>
+          @if (email.invalid && email.touched) {
+          <div class="text-red-500 text-xs">El correo es obligatorio</div>
+          }
 
           <!-- Contraseña -->
           <label class="block mt-3 font-semibold text-claro">Contraseña</label>
@@ -30,14 +30,18 @@
             [(ngModel)]="credentials.password"
             name="password"
             required
-            #password="ngModel" 
-            [ngClass]="{'border-red-500': password.invalid && password.touched}"
+            #password="ngModel"
+            [ngClass]="{
+              'border-red-500': password.invalid && password.touched
+            }"
           />
-          <div *ngIf="password.invalid && password.touched" class="text-red-500 text-xs">
-            La contraseña es obligatoria
-          </div>
+          @if (password.invalid && password.touched) {
+          <div class="text-red-500 text-xs">La contraseña es obligatoria</div>
+          }
 
-          <div class="flex flex-col mt-4 md:flex-row items-center gap-4 justify-between md:items-baseline">
+          <div
+            class="flex flex-col mt-4 md:flex-row items-center gap-4 justify-between md:items-baseline"
+          >
             <button
               type="submit"
               class="mt-4 transition-all bg-limon-600 hover:bg-limon-800 font-bold py-2 px-6 rounded-md"
@@ -45,13 +49,19 @@
             >
               Iniciar sesión
             </button>
-            <a class="text-sm text-limon-600 hover:underline">Olvidaste tu contraseña?</a>
+            <a class="text-sm text-limon-600 hover:underline"
+              >Olvidaste tu contraseña?</a
+            >
           </div>
         </form>
 
         <div class="pt-6 text-claro flex flex-col text-sm items-center">
           <span>¿Aún no tienes una cuenta?</span>
-          <a [routerLink]="['/auth/register']" class="text-limon-600 hover:underline">Registrate</a>
+          <a
+            [routerLink]="['/auth/register']"
+            class="text-limon-600 hover:underline"
+            >Registrate</a
+          >
         </div>
       </div>
     </div>

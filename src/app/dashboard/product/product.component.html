@@ -1,17 +1,17 @@
 <section class="bg-azul-900 py-8">
   <div class="container mx-auto max-w-6xl p-6 bg-white shadow-lg rounded-lg">
+    @if(errorMessage){
     <!-- Mostrar mensaje de error si ocurre algún problema -->
-    <div *ngIf="errorMessage" class="text-red-600 text-center mb-4">
+    <div class="text-red-600 text-center mb-4">
       <p>{{ errorMessage }}</p>
     </div>
-
+    }@else if (isLoading){
     <!-- Mostrar mensaje de carga mientras se espera la respuesta -->
-    <div *ngIf="isLoading" class="text-center">
+    <div class="text-center">
       <p class="text-gray-500 animate-pulse">Cargando producto...</p>
     </div>
-
-    <!-- Mostrar el producto una vez cargado -->
-    <div *ngIf="product && !isLoading" class="flex gap-8">
+    } @else if (product && !isLoading) {
+    <div class="flex gap-8">
       <!-- Imagen del producto -->
       <div class="flex items-center justify-center">
         <img
@@ -42,6 +42,9 @@
         </button>
       </div>
     </div>
+    }
+
+    <!-- Mostrar el producto una vez cargado -->
 
     <!-- Sección de comentarios -->
     <div class="mt-8">
@@ -64,16 +67,15 @@
         </button>
       </form>
       <!-- Lista de comentarios -->
-      <div
-        *ngFor="let comment of product?.comments || []"
-        class="bg-gray-50 p-4 rounded-lg shadow-sm mb-4"
-      >
+      @for (comment of product.comments || []; track $index) {
+      <div class="bg-gray-50 p-4 rounded-lg shadow-sm mb-4">
         <p class="text-gray-700 mb-1">
           <span class="font-semibold">{{ comment.user.firstName }}:</span>
           {{ comment.commentText }}
         </p>
         <p class="text-sm text-gray-500">Email: {{ comment.user.email }}</p>
       </div>
+      }
     </div>
 
     <!-- Sección de likes -->

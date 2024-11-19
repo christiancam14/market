@@ -13,6 +13,8 @@ import { Product } from '../../../core/interfaces/Products';
 })
 export class CardGridComponent {
   products: Product[] = [];
+  isLoading: boolean = true;
+  errorMessage: string | null = null;
 
   constructor(
     private productsService: ProductsService,
@@ -25,10 +27,14 @@ export class CardGridComponent {
     try {
       this.productsService.getProducts().subscribe(async (products) => {
         this.products = products;
+        this.isLoading = false;
         console.log(products);
       });
     } catch (error) {
       console.log(error);
+      this.isLoading = false; // Cambio a no cargar
+      this.errorMessage =
+        'Hubo un erro al cargar los productos. Intenta de nuevo más tarde.';
     }
   }
 }

@@ -1,55 +1,61 @@
 <section class="bg-azul-900 text-white py-10">
-    <div class="container mx-auto max-w-5xl p-6 lg:p-8 rounded-lg text-center">
-      <h2 class="text-center !my-4">Contactos</h2>
-  
-      <mat-tab-group [(selectedIndex)]="selectedTab" (selectedTabChange)="selectTab($event.index)">
-        <!-- Pestaña para mostrar todos los contactos -->
-        <mat-tab label="Todos los contactos">
-          <!-- Botón para agregar un nuevo contacto -->
-          <div *ngIf="allContacts.length === 0">
-            No hay contactos disponibles.
-          </div>
-          <div *ngFor="let contact of allContacts">
-            <div class="contact-card my-4 p-4 bg-gray-800 rounded-lg shadow-md">
-              <h3 class="text-lg font-semibold">{{ contact.name }}</h3>
-              <p class="text-sm">{{ contact.email }}</p>
-  
-              <!-- Botón para ver el perfil -->
-              <div class="mt-4 flex gap-4 justify-center">
-                <button
-                  class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                >
-                  Ver Perfil
-                </button>
-                <button
-                  class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600"
-                >
-                  Agregar Contacto
-                </button>
-              </div>
+  <div class="container mx-auto max-w-5xl p-6 lg:p-8 rounded-lg text-center">
+    <h2 class="text-center !my-4">Contactos</h2>
+
+    <mat-tab-group
+      [(selectedIndex)]="selectedTab"
+      (selectedTabChange)="selectTab($event.index)"
+    >
+      <!-- Pestaña para mostrar todos los contactos -->
+      <mat-tab label="Todos los contactos">
+        <!-- Botón para agregar un nuevo contacto -->
+        @if (allContacts.length === 0) {
+        <div>No hay contactos disponibles.</div>
+        } @for (contact of allContacts; track $index) {
+        <div>
+          <div class="contact-card my-4 p-4 bg-gray-800 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold">{{ contact.name }}</h3>
+            <p class="text-sm">{{ contact.email }}</p>
+
+            <!-- Botón para ver el perfil -->
+            <div class="mt-4 flex gap-4 justify-center">
+              <button
+                class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              >
+                Ver Perfil
+              </button>
+              <button
+                class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600"
+              >
+                Agregar Contacto
+              </button>
             </div>
           </div>
-        </mat-tab>
-  
-        <!-- Pestaña para mostrar los amigos -->
-        <mat-tab label="Mis amigos">
-          <div *ngIf="myContacts.length === 0">No tienes amigos aún.</div>
-          <div *ngFor="let contact of myContacts">
-            <div class="contact-card my-4 p-4 bg-gray-800 rounded-lg shadow-md">
-              <p class="text-sm">{{ contact.email }}</p>
-  
-              <!-- Botón para ver el perfil -->
-              <div class="mt-4">
-                <button
-                  class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                >
-                  Ver Perfil
-                </button>
-              </div>
+        </div>
+        }
+      </mat-tab>
+
+      <!-- Pestaña para mostrar los amigos -->
+      <mat-tab label="Mis amigos">
+        @if (myContacts.length === 0) {
+        <div>No tienes amigos aún.</div>
+        } @for (contact of myContacts; track $index) {
+        <div>
+          <div class="contact-card my-4 p-4 bg-gray-800 rounded-lg shadow-md">
+            <p class="text-sm">{{ contact.email }}</p>
+
+            <!-- Botón para ver el perfil -->
+            <div class="mt-4">
+              <button
+                class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              >
+                Ver Perfil
+              </button>
             </div>
           </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-  </section>
-  
+        </div>
+        }
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>

@@ -3,36 +3,26 @@
     class="container mx-auto max-w-5xl p-6 lg:p-8 rounded-lg shadow-lg bg-azul-800"
   >
     <!-- Mostrar mensaje de error si ocurre algún problema -->
-    <div *ngIf="errorMessage" class="text-red-500 mb-4 text-center">
+    @if (errorMessage) {
+    <div class="text-red-500 mb-4 text-center">
       <p>{{ errorMessage }}</p>
     </div>
+    }
 
     <!-- Mostrar mensaje de carga mientras se espera la respuesta -->
-    <div *ngIf="isLoading" class="text-center text-gray-300">
+    @if (isLoading) {
+    <div class="text-center text-gray-300">
       <p>Cargando perfil...</p>
     </div>
+    }
 
     <!-- Formulario de edición de perfil -->
-    <div *ngIf="user && !isLoading">
+    @if (user && !isLoading) {
+    <div>
       <form (ngSubmit)="onSubmit($event)" class="space-y-6">
         <!-- Sección de imagen de perfil -->
         <div class="flex flex-col lg:flex-row items-center gap-6">
-          <!-- <div class="flex-shrink-0">
-            <img
-              [src]="
-                imgUrl ||
-                'https://placehold.co/250x250/EEE/31343C?font=montserrat&text=' +
-                  user.username
-              "
-              alt="{{ user.username }}"
-              class="rounded-full border-4 border-blanco w-48 h-48 object-cover"
-            />
-          </div> -->
           <div class="flex-grow">
-            <!-- <label for="imageUrl" class="text-lg font-semibold block mb-2"
-              >Cambiar imagen</label
-            > -->
-
             <!-- Contenedor del botón y vista previa -->
             <div class="relative flex align-middle justify-center">
               <!-- Input File oculto -->
@@ -52,21 +42,22 @@
               </button>
 
               <!-- Vista previa de la imagen -->
-              <div *ngIf="imgUrl" class="mt-3">
+              @if (imgUrl) {
+              <div class="mt-3">
                 <img
                   [src]="imgUrl"
                   alt="Vista previa"
                   class="w-52 h-52 rounded-full object-cover border-2 border-azul-500"
                 />
               </div>
+              }
 
               <!-- Mostrar nombre de archivo -->
-              <p
-                *ngIf="fileName"
-                class="mt-2 text-sm text-azul-900 font-semibold"
-              >
+              @if (fileName) {
+              <p class="mt-2 text-sm text-azul-900 font-semibold">
                 {{ fileName }}
               </p>
+              }
             </div>
           </div>
         </div>
@@ -161,5 +152,6 @@
         </div>
       </form>
     </div>
+    }
   </div>
 </section>

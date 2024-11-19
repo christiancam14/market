@@ -10,13 +10,14 @@
       Obtener mi ubicación
     </button>
 
+    @if (isLoading) {
     <!-- Mostrar el estado de carga -->
-    <div *ngIf="isLoading" class="text-gray-500 animate-pulse">
-      Cargando ubicación...
-    </div>
+    <div class="text-gray-500 animate-pulse">Cargando ubicación...</div>
+    }
 
     <!-- Mostrar coordenadas -->
-    <div *ngIf="latitude && longitude" class="text-gray-700">
+    @if (latitude && longitude) {
+    <div class="text-gray-700">
       <p><span class="font-semibold">Latitud:</span> {{ latitude }}</p>
       <p><span class="font-semibold">Longitud:</span> {{ longitude }}</p>
       <!-- <div #map id="map" style="height: 400px"></div> -->
@@ -29,15 +30,20 @@
         referrerpolicy="no-referrer-when-downgrade"
       ></iframe>
     </div>
+    }
 
     <!-- Mostrar dirección si está disponible -->
-    <div *ngIf="address" class="mt-4 text-gray-700">
+    @if (address) {
+    <div class="mt-4 text-gray-700">
       <p><span class="font-semibold">Dirección:</span> {{ address }}</p>
     </div>
+    }
 
     <!-- Mensaje de error si ocurre algún problema -->
-    <div *ngIf="errorMessage" class="text-red-600 mt-4">
+    @if (errorMessage) {
+    <div class="text-red-600 mt-4">
       <p>{{ errorMessage }}</p>
     </div>
+    }
   </div>
 </section>
