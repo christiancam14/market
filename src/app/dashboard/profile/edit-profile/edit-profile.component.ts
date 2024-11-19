@@ -20,7 +20,6 @@ import { IconComponent } from '../../../shared/ui/icon/icon.component';
     CommonModule,
     FormsModule,
     IconComponent,
-    IconComponent,
     ReactiveFormsModule,
   ],
   templateUrl: './edit-profile.component.html',

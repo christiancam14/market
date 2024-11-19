@@ -4,7 +4,7 @@
   >
     <form
       (ngSubmit)="onSubmit($event)"
-      #productForm="ngForm"
+      [formGroup]="productForm"
       class="p-4 rounded-lg shadow-lg"
     >
       <h2 class="!text-2xl !font-bold !mb-4">Crear Producto</h2>
@@ -16,9 +16,9 @@
         <input
           type="text"
           id="name"
-          [(ngModel)]="product.name"
+          formControlName="name"
           name="name"
-          class="w-full p-2 border border-gray-300 rounded"
+          class="w-full p-2 border border-gray-300 rounded !text-azul-900"
           required
         />
       </div>
@@ -30,10 +30,10 @@
         <input
           type="number"
           id="price"
-          [(ngModel)]="product.price"
+          formControlName="price"
           name="price"
           step="0.01"
-          class="w-full p-2 border border-gray-300 rounded"
+          class="w-full p-2 border border-gray-300 rounded !text-azul-900"
           required
         />
       </div>
@@ -45,9 +45,9 @@
         <input
           type="url"
           id="imageUrl"
-          [(ngModel)]="product.imageUrl"
+          formControlName="imageUrl"
           name="imageUrl"
-          class="w-full p-2 border border-gray-300 rounded"
+          class="w-full p-2 border border-gray-300 rounded !text-azul-900"
           required
         />
       </div>
@@ -58,10 +58,10 @@
         >
         <textarea
           id="description"
-          [(ngModel)]="product.description"
+          formControlName="description"
           name="description"
           rows="3"
-          class="w-full p-2 border border-gray-300 rounded"
+          class="w-full p-2 border border-gray-300 rounded !text-azul-900"
           required
         ></textarea>
       </div>
@@ -73,9 +73,9 @@
         <input
           type="text"
           id="category"
-          [(ngModel)]="product.category"
+          formControlName="category"
           name="category"
-          class="w-full p-2 border border-gray-300 rounded"
+          class="w-full p-2 border border-gray-300 rounded !text-azul-900"
           required
         />
       </div>

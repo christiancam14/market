@@ -31,7 +31,7 @@ export class ProductsService {
   }
 
   createProduct(payload: { userId: string; product: any }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/create`, payload);
+    return this.http.post(`${this.baseUrl}/products/create`, payload);
   }
 
   likeProduct(userId: string, productId: string) {
