@@ -35,11 +35,8 @@ export class ProductsService {
   }
 
   likeProduct(userId: string, productId: string) {
-    console.log('Llega');
     const url = `${this.baseUrl}/products/${productId}/likes`;
-    const formData = new FormData();
-    formData.append('userId', userId);
-    return this.http.post(url, formData);
+    return this.http.post(url, { userId });
   }
 
   addComment(

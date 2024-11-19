@@ -6,6 +6,7 @@ import {
   FormBuilder,
   FormGroup,
   FormsModule,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { UserService } from '../../services/user.service';
@@ -15,7 +16,13 @@ import { IconComponent } from '../../../shared/ui/icon/icon.component';
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, IconComponent, IconComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IconComponent,
+    IconComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.css',
 })
@@ -37,12 +44,14 @@ export class EditProfileComponent implements OnInit {
   ) {
     // Inicialización del formulario reactivo
     this.userForm = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
+      email: [
+        { value: '', disabled: true },
+        [Validators.required, Validators.email],
+      ],
       cedula: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      role: ['USER', [Validators.required]],
     });
   }
 
@@ -107,15 +116,20 @@ export class EditProfileComponent implements OnInit {
       username: this.user?.username ?? '', // No modificar el username
     };
 
-    this.userService.updateUser(this.userId, updatedUser).subscribe(
-      (response) => {
+    this.userService.updateUser(this.userId, updatedUser).subscribe({
+      next: (response) => {
         this.isLoading = false;
+        console.log('sal');
         this.router.navigate(['/perfil']); // Redirigir al perfil una vez guardado
       },
-      (error) => {
+      error: (error) => {
         this.isLoading = false;
-        this.errorMessage = 'Error al guardar los cambios.';
-      }
-    );
+
+        // this.errorMessage = 'Error al guardar los cambios.';
+      },
+      complete: () => {
+        // Código opcional cuando la suscripción se completa
+      },
+    });
   }
 }

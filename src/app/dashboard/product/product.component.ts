@@ -43,6 +43,13 @@ export class ProductComponent implements OnInit {
     } else {
       this.router.navigate(['']); // Redirigir si no hay un id
     }
+
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      this.userId = decoded.sub;
+      console.log(this.userId);
+    }
   }
 
   loadProduct() {
@@ -61,17 +68,10 @@ export class ProductComponent implements OnInit {
   }
 
   onClickLike() {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      const decoded: any = jwtDecode(token);
-      this.userId = decoded.sub;
-      console.log(this.userId);
-    }
     this.productService.likeProduct(this.userId, this.productId!).subscribe({
       next: (response) => {
-        console.log('Me gusta enviado con éxito:', response);
         this.loadProduct();
-        // Actualizar la UI o manejar el éxito.
+        console.log('Me gusta enviado con éxito:', response);
       },
       error: (error) => {
         console.error('Error al dar me gusta:', error);

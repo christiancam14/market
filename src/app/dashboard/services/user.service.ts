@@ -21,32 +21,17 @@ export class UserService {
   // Actualizar perfil de usuario
   updateUser(userId: string, user: User): Observable<User> {
     // Crear un FormData para enviar los datos
-    const formData = new FormData();
-    // Agregar solo los campos que no son null o vacíos
-    if (user.firstName) {
-      formData.append('firstName', user.firstName);
-    }
-    if (user.lastName) {
-      formData.append('lastName', user.lastName);
-    }
-    if (user.email) {
-      formData.append('email', user.email);
-    }
-    if (user.cedula) {
-      formData.append('cedula', user.cedula);
-    }
-    if (user.address) {
-      formData.append('address', user.address);
-    }
-    if (user.role) {
-      formData.append('role', user.role);
-    }
+    const body = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      cedula: user.cedula,
+      address: user.address,
+      role: user.role,
+    };
 
     // Realizamos la solicitud PUT a la URL del endpoint con el FormData
-    return this.http.put<User>(
-      `${this.baseUrl}/users/${userId}/update`,
-      formData
-    );
+    return this.http.patch<User>(`${this.baseUrl}/users/${userId}/update`, body);
   }
 
   getAllContacts(): Observable<Contact[]> {
